@@ -78,7 +78,7 @@
             <a class="collapse-item" href="eliminar_usuario.php">Eliminar Usuario</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Otras Paginas:</h6>
-            <a class="collapse-item" href="404.php">404 Page</a>
+            <a class="collapse-item" href="index_quiniela.php">Quiniela</a>
 
           </div>
         </div>
