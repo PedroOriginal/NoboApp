@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="es-MX" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </head>
-  <body  style="background-color:WHITE;">
-
-
-
-
-
-  </body>
-</html>
-
 <?php
-require 'conexion2.php';
+include('../conexion.php');
+
 session_start();
 $varsesion = $_SESSION['usuario'];
 
@@ -46,11 +29,15 @@ if($varsesion == null || $varsesion = '') {
   <link rel="shortcut icon" href="https://www.vectorlogo.es/wp-content/uploads/2018/03/logo-vector-gnp-seguros.jpg">
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- Estilos para formulario step-->
+<link rel="stylesheet" href="css/app.css" type="text/css">
+
 
 </head>
 
@@ -306,99 +293,100 @@ if($varsesion == null || $varsesion = '') {
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Registro de Quiniela</h1>
+            <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
 
           </div>
 
           <!-- tabla -->
-          <div class="row table-responsive">
-            <center>
-          <img src="img/2.png" alt="logo">
-          </center>
+          <div class="root">
+          <form action="" class="form-register">
+          <div class="form-register__header">
+          <ul class="progressbar">
+              <li style="color:white" class="progressbar__option active"> </li>
+              <li style="color:white" class="progressbar__option"> </li>
+              <li style="color:white" class="progressbar__option"> </li>
+              <li style="color:white" class="progressbar__option"> </li>
+              <li style="color:white" class="progressbar__option"> </li>
+          </ul>
+          <h1 class="form-register__title">Registro de casuistica </h1>
+          </div>
+          <div class="form-register__body">
+          <div class="step active" id="step-1">
+              <div class="step__header">
+                  <h2 class="step__title">Información de cuenta<small>(Paso 1)</small></h2>
+              </div>
+              <div class="step__body">
+                  <input type="email" placeholder="Correo" class="step__input">
+                  <input type="password" placeholder="Contraseña" class="step__input">
+                  <input type="password" placeholder="Confirmar contraseña" class="step__input">
+              </div>
+              <div class="step__footer">
+                  <button type="button" class="btn btn-primary step__button step__button--next" data-to_step="2" data-step="1">Siguiente</button>
+              </div>
+          </div>
+          <div class="step" id="step-2">
+              <div class="step__header">
+                  <h2 class="step__title">Información de personal<small>(Paso 2)</small></h2>
+              </div>
+              <div class="step__body">
+                  <input type="text" placeholder="Nombre" class="step__input">
+                  <input type="text" placeholder="Apellido" class="step__input">
+                  <input type="tel" placeholder="Teléfono" class="step__input">
+                  <textarea rows="4" cols="80" placeholder="Dirección" class="step__input"></textarea>
+              </div>
+              <div class="step__footer">
+                  <button type="button" class="btn btn-primary step__button step__button--back" data-to_step="1" data-step="2">Regresar</button>
+                  <button type="button" class="btn btn-primary step__button step__button--next" data-to_step="3" data-step="2">Siguiente</button>
+              </div>
+          </div>
+          <div class="step" id="step-3">
+              <div class="step__header">
+                  <h2 class="step__title">Información de personal<small>(Paso 2)</small></h2>
+              </div>
+              <div class="step__body">
+                  <input type="text" placeholder="Nombre" class="step__input">
+                  <input type="text" placeholder="Apellido" class="step__input">
+                  <input type="tel" placeholder="Teléfono" class="step__input">
+                  <textarea rows="4" cols="80" placeholder="Dirección" class="step__input"></textarea>
+              </div>
+              <div class="step__footer">
+                  <button type="button" class="btn btn-primary step__button step__button--back" data-to_step="2" data-step="3">Regresar</button>
+                  <button type="button" class="btn btn-primary step__button step__button--next" data-to_step="4" data-step="3">Siguiente</button>
+              </div>
+          </div>
+          <div class="step" id="step-4">
+              <div class="step__header">
+                  <h2 class="step__title">Información de personal<small>(Paso 2)</small></h2>
+              </div>
+              <div class="step__body">
+                  <input type="text" placeholder="Nombre" class="step__input">
+                  <input type="text" placeholder="Apellido" class="step__input">
+                  <input type="tel" placeholder="Teléfono" class="step__input">
+                  <textarea rows="4" cols="80" placeholder="Dirección" class="step__input"></textarea>
+              </div>
+              <div class="step__footer">
+                  <button type="button" class="btn btn-primary step__button step__button--back" data-to_step="3" data-step="4">Regresar</button>
+                  <button type="button" class="btn btn-primary step__button step__button--next" data-to_step="5" data-step="4">Siguiente</button>
+              </div>
+          </div>
+          <div class="step" id="step-5">
+              <div class="step__header">
+                  <h2 class="step__title">Información X<small>(Paso 3)</small></h2>
+              </div>
+              <div class="step__body">
+                  <input type="text" placeholder="Dato x" class="step__input">
+                  <input type="text" placeholder="Dato x" class="step__input">
+                  <input type="text" placeholder="Dato x" class="step__input">
+              </div>
+              <div class="step__footer">
+                  <button type="button" class="btn btn-primary step__button step__button--back" data-to_step="4" data-step="5">Regresar</button>
+                  <button type="submit" class="btn btn-primary step__button">Registrarse</button>
+              </div>
+          </div>
 
-
-                <form method="POST" class="user" action="guardar_quiniela.php">
-
-                  <table align=center >
-                    <thead>
-                      <tr>
-                        <th colspan="3"><input required  style="width:560px;height:30px" type="text" class="form-control form-control-user" id="usuario" name="usuario" placeholder="Ingresa tu Nombre" value="<?php echo $_SESSION['usuario'] ?>"> Si deseas ingresar otro registro coloca un numero despues de tu nombre de usuario</th>
-                      </tr>
-                      <tr>
-
-
-                        <th>LOCAL</th>
-                          <th>L=LOCAL,EMPATE,VISITANTE</th>
-                            <th>VISITANTE</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>PUEBLA</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido1" name="partido1" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>TIGRES</td>
-                      </tr>
-                      <tr>
-                        <td>MORELIA</td>
-                        <td>  <input pattern="L|E|V" title="Unicamente ingresa valores L V E " required style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido2" name="partido2" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>TIJUANA</td>
-                      </tr>
-                      <tr>
-                        <td>PACHUCA</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido3" name="partido3" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>ATLAS</td>
-                      </tr>
-                      <tr>
-                        <td>AMERICA</td>
-                        <td>  <input pattern="L|E|V" title="Unicamente ingresa valores L V E " required style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido4" name="partido4" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>SANTOS</td>
-                      </tr>
-                      <tr>
-                        <td>MONTERREY</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido5" name="partido5" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>NECAXA</td>
-                      </tr>
-                      <tr>
-                        <td>CHIVAS</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido6" name="partido6" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>LEON</td>
-                      </tr>
-                      <tr>
-                        <td>PUMAS</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido7" name="partido7" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>TOLUCA</td>
-                      </tr>
-                      <tr>
-                        <td>LOBOS BUAP</td>
-                      <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido8" name="partido8" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>CRUZ AZUL</td>
-                      </tr>
-                      <tr>
-                        <td>QUERETARO</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido9" name="partido9" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>VERACRUZ</td>
-                      </tr>
-                      <tr>
-                        <td>QUERETARO</td>
-                        <td><input pattern="L|E|V" title="Unicamente ingresa valores L V E " required input style="width:260px;height:15px" type="text" class="form-control form-control-user" id="partido9" name="partido9" placeholder="L=LOCAL E=EMPATE V=VISITANTE"></td>
-                        <td>VERACRUZ</td>
-                      </tr>
-                      <tr>
-
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td><button style="width:230px;height:40px" type="submit" class="btn btn-primary btn-user btn-block">
-                       Registrar Quiniela
-                   </button></td>
-                   <td><a href="https://datastudio.google.com/reporting/1K8ZPXYUkCnzIpuLW64QjkG2fNm6ltuym/page/H7Ao" class="btn btn-primary btn-user btn-block">Ver Resultados</a>
-                   </td>
-                   <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-
+          </form>
+          </div>
+          <script src="js/app.js"></script>
 
           </div>
 
@@ -475,21 +463,21 @@ if($varsesion == null || $varsesion = '') {
   		</script>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="../js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="../vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="../js/demo/chart-area-demo.js"></script>
+  <script src="../js/demo/chart-pie-demo.js"></script>
 
 </body>
 

@@ -20,6 +20,7 @@ require 'conexion.php';
 	</head>
 
 	<body>
+    <?php echo date("m-d-Y H:i:s", $time); ?>
 		<div class="container">
 
 					<?php if($resultado) { ?>

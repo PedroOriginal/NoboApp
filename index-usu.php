@@ -1,5 +1,6 @@
 <?php
 require 'conexion.php';
+
 session_start();
 $varsesion = $_SESSION['usuario'];
 
@@ -11,11 +12,15 @@ and status not like'terminado'";
 $resultado =$mysqli->query($sql);
 
 if($varsesion == null || $varsesion = '') {
-  echo "Usted no tiene autorizacion para ingresar al sistema. Por favor inicia sesion!";
+  echo '<script language = javascript>
+  alert("No tienes a este contenido, por favor inicia sesión.")
+  self.location = "login.php"
+  </script>';
   die();
 }
 
  ?>
+
 
 
 <!DOCTYPE html>
@@ -326,7 +331,7 @@ if($varsesion == null || $varsesion = '') {
                 <?php while($row = $resultado->fetch_array(1))
                 {?>
                   <tr>
-                    <td><a class="btn btn-primary btn-primary" href="proceso1.php">
+                    <td><a class="btn btn-primary btn-primary" href="casuisticas/casuistica1.php">
                   Analizar<i class='fas fa-pencil-alt'></i></a></td>
                     <td><?php echo $row['codigo_tarea']; ?></td>
                     <td><?php echo $row['casuistica']; ?></td>

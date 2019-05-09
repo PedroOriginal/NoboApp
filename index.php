@@ -1,12 +1,53 @@
 <?php
+$time =date("d/m/Y");
+    require 'conexion.php';
     session_start();
+
     $varsesion = $_SESSION['usuario'];
 
+  //Consulta para revision
+$sql = "SELECT count(status) AS R1
+FROM nobo.agenda where usuario='$varsesion'
+and status='revision'";
+
+$resultado1 =$mysqli->query($sql) or die(mysql_error());
+$row1 = mysqli_fetch_assoc($resultado1);
+
+//Consulta para recalculo
+$sql = "SELECT count(status) AS R2
+FROM nobo.agenda where usuario='$varsesion'
+and status='recalculo'";
+
+$resultado2 =$mysqli->query($sql) or die(mysql_error());
+$row2 = mysqli_fetch_assoc($resultado2);
+
+//Consulta para activado
+$sql = "SELECT count(status) as R3
+FROM nobo.agenda
+where usuario= '$varsesion' and status= 'activado'";
+
+$resultado3 =$mysqli->query($sql) or die(mysql_error());
+$row3 = mysqli_fetch_assoc($resultado3);
+
+//Consulta para activado
+$sql = "SELECT count(status) AS R4
+FROM nobo.agenda where fecha_asignacion ='$time'
+and usuario='$varsesion' and status='terminado'";trhfssjx3245wy4w5y
+
+$resultado4 =$mysqli->query($sql) or die(mysql_error());
+$row4 = mysqli_fetch_assoc($resultado4);
+
+
     if($varsesion == null || $varsesion = '') {
-      echo "Usted no tiene autorizacion para ingresar al sistema. Por favor inicia sesion!";
+      echo '<script language = javascript>
+      alert("No tienes a este contenido, por favor inicia sesión.")
+      self.location = "login.php"
+      </script>';
       die();
     }
+
  ?>
+
 <!DOCTYPE html>
 <html lang="es-MX">
 
@@ -29,10 +70,51 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <!--script para grafica de barras-->
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+   google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawStacked);
+
+function drawStacked() {
+    var data = google.visualization.arrayToDataTable([
+      ['Usuario', 'Enero', 'Febrero', 'marzo'],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,],
+      ['Ricardo', 8, 8, 12,]
+
+    ]);
+
+    var options = {
+      chartArea: {width: '60%'},
+      isStacked: true,
+      hAxis: {
+        title: 'Tareas realizadas por usuario',
+        minValue: 0,
+      },
+      vAxis: {
+        title: 'Mes'
+      }
+    };
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+
+   </script>
 </head>
 
 <body id="page-top">
-
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -57,9 +139,10 @@
           <span>Inicio</span></a>
       </li>
       <!-- Divider -->
-      <hr class="sidebar-divider">
 
-      <!-- Heading -->
+
+
+      <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Administracion
       </div>
@@ -68,7 +151,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Paginas</span>
+          <span>Páginas</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -83,6 +166,9 @@
           </div>
         </div>
       </li>
+
+
+
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -211,6 +297,7 @@
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Message Center
+
                 </h6>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="dropdown-list-image mr-3">
@@ -296,11 +383,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Terminado Diario</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $row4['R4'];?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-thumbs-up fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -313,11 +400,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Revision</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $row1['R1'];?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -330,20 +417,20 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Recalculo</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $row2['R2'];?></div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 12%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="fas fa-history fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -356,11 +443,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Activado</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $row3['R3'];?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -373,71 +460,36 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
+                  <h6 class="m-0 font-weight-bold text-primary">Detalle DataSudio</h6>
+
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                  <div class="chart-area" style="width="1050" height="1000"">
+
+                <iframe width="1050" height="1730" src="https://datastudio.google.com/embed/reporting/1uTax8VvkkI5XtKu2nXDFr9nTXLmalEt8/page/SmWm" frameborder="0" style="border:0" allowfullscreen></iframe>
+
                   </div>
-                </div>
+                  <div class="chart-area" style="width="1050" height="1000"">
+                  </div>
+                  <div class="chart-area" style="width="1050" height="1000"">
+                  </div>
+                  <div class="chart-area" style="width="1050" height="1000"">
+                  </div>
+                  <div class="chart-area" style="width="1050" height="1200"">
+                  </div>
+                  <div class="chart-area" style="width="1050" height="20"">
+                  </div>
+
+              </div>
               </div>
             </div>
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
 
           <!-- Content Row -->
@@ -449,26 +501,26 @@
               <!-- Project Card Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Proyectos</h6>
                 </div>
                 <div class="card-body">
-                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
+                  <h4 class="small font-weight-bold">Campaña Equipo Pesado <span class="float-right">20%</span></h4>
                   <div class="progress mb-4">
                     <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
+                  <h4 class="small font-weight-bold">Campaña Impulso <span class="float-right">70%</span></h4>
                   <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
+                  <h4 class="small font-weight-bold">Nobo Web<span class="float-right">60%</span></h4>
                   <div class="progress mb-4">
                     <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
+                  <h4 class="small font-weight-bold">Quiniela Web <span class="float-right">80%</span></h4>
                   <div class="progress mb-4">
                     <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
+                  <h4 class="small font-weight-bold">Campaña Atrevete <span class="float-right">Complete!</span></h4>
                   <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -591,7 +643,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Estas seguro de cerrar tu sesion?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de cerrar tu sesión?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -619,7 +671,7 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
+<!--   <script src="js/demo/chart-area-demo.js"></script> -->
   <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>

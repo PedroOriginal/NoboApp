@@ -13,7 +13,7 @@ function rainbowFadeInUp() {
 var rainbowActivation = false;
 
 $( "#stop-01" ).click( function() {
-  $(".mmo-modal--tracking-intro").addClass( "mmo-state-01" ).removeClass( "mmo-state-02 mmo-state-03" );
+  $(".mmo-modal--tracking-intro").addClass( "mmo-state-01" ).removeClass( "mmo-state-02 mmo-state-03 mmo-state-04 mmo-state-05" );
   if (rainbowActivation == true) {
     rainbowFadeOutDown();
   }
@@ -22,24 +22,34 @@ $( "#stop-01" ).click( function() {
   }
 });
 $( "#stop-02" ).click( function() {
-  $(".mmo-modal--tracking-intro").addClass( "mmo-state-02" ).removeClass( "mmo-state-01 mmo-state-03" );
+  $(".mmo-modal--tracking-intro").addClass( "mmo-state-02" ).removeClass( "mmo-state-01 mmo-state-03 mmo-state-04 mmo-state-05" );
   if (rainbowActivation == true) {
     rainbowFadeOutDown();
+  }
+  else {
+    rainbowHide();
   }
 });
 $( "#stop-03" ).click( function() {
-  $(".mmo-modal--tracking-intro").addClass( "mmo-state-03" ).removeClass( "mmo-state-01 mmo-state-03" );
+  $(".mmo-modal--tracking-intro").addClass( "mmo-state-03" ).removeClass( "mmo-state-01 mmo-state-02 mmo-state-04 mmo-state-05" );
   if (rainbowActivation == true) {
     rainbowFadeOutDown();
   }
+  else {
+    rainbowHide();
+  }
 });
 $( "#stop-04" ).click( function() {
-  $(".mmo-modal--tracking-intro").addClass( "mmo-state-04" ).removeClass( "mmo-state-01 mmo-state-02" );
-  rainbowFadeInUp();
-  rainbowActivation = true;
+  $(".mmo-modal--tracking-intro").addClass( "mmo-state-04" ).removeClass( "mmo-state-01 mmo-state-02 mmo-state-03 mmo-state-05" );
+  if (rainbowActivation == true) {
+    rainbowFadeOutDown();
+  }
+  else {
+    rainbowHide();
+  }
 });
 $( "#stop-05" ).click( function() {
-  $(".mmo-modal--tracking-intro").addClass( "mmo-state-05" ).removeClass( "mmo-state-01 mmo-state-02" );
+  $(".mmo-modal--tracking-intro").addClass( "mmo-state-05" ).removeClass( "mmo-state-01 mmo-state-02 mmo-state-03 mmo-state-04" );
   rainbowFadeInUp();
   rainbowActivation = true;
 });
